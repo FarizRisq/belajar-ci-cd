@@ -2,24 +2,43 @@ import json
 import os
 
 def run_analysis():
-    # Path ke file JSON kamu
-    file_path = 'database/corruson_matches_strict_exactseat.json'
+    file_path = 'Database/corruson_matches_strict_exactseat.json'
     
+    # Cek apakah file ada sebelum dibuka
     if not os.path.exists(file_path):
-        print(f"❌ Error: File {file_path} tidak ditemukan!")
+        print(f"Error: File {file_path} tidak ditemukan!")
         return
 
     with open(file_path, 'r') as f:
-        data = json.load(f)
+        try:
+            data = json.load(f)
+        except json.JSONDecodeError:
+            print("Error: Gagal membaca JSON, format file rusak!")
+            return
 
-    # Menampilkan ringkasan data
     print("=== DATA ANALYSIS REPORT ===")
-    print(f"Defect ID  : {data.get('defect_identifier')}")
-    print(f"Aircraft   : {data.get('defect_reg')}")
-    print(f"Description: {data.get('defect_desc')}")
-    print(f"Repair ID  : {data.get('repair_id')}")
-    print(f"Match Score: {data.get('final_score')}")
-    print("============================")
+    
+    # Memastikan data diperlakukan sebagai list agar bisa di-loop
+    items = data if isinstance(data, list) else [data]
+    
+    total_data = len(items)
+    print(f"Total entries found: {total_data}")
+    print("-" * 30)
+
+    for item in items:
+        # Menggunakan .get() agar tidak crash jika key tidak ada
+        defect_id = item.get('defect_identifier', 'N/A')
+        reg = item.get('defect_reg', 'Unknown')
+        status = item.get('matched', 'No Status')
+        score = item.get('final_score', 0)
+
+        print(f"Defect ID   : {defect_id}")
+        print(f"Registration: {reg}")
+        print(f"Match Status: {status}")
+        print(f"Final Score : {score}")
+        print("-" * 30)
+
+    print("=== ANALYSIS COMPLETED ===")
 
 if __name__ == "__main__":
     run_analysis()
