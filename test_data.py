@@ -2,7 +2,7 @@ import json
 import os
 
 def test_check_json_structure():
-    file_path = 'Database/corruson_matches_strict_exactseat.json'
+    file_path = 'database/corruson_matches_strict_exactseat.json'
     assert os.path.exists(file_path), "File JSON hilang!"
 
     with open(file_path, 'r') as f:
