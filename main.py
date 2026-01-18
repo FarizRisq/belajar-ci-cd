@@ -3,7 +3,7 @@ import os
 
 def run_analysis():
     # Path ke file JSON kamu
-    file_path = 'Database/corruson_matches_strict_exactseat.json'
+    file_path = 'database/corruson_matches_strict_exactseat.json'
     
     if not os.path.exists(file_path):
         print(f"❌ Error: File {file_path} tidak ditemukan!")
