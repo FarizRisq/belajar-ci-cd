@@ -2,7 +2,7 @@ import json
 import os
 
 def run_analysis():
-    file_path = 'Database/corruson_matches_strict_exactseat.json'
+    file_path = 'database/corruson_matches_strict_exactseat.json'
     
     # Cek apakah file ada sebelum dibuka
     if not os.path.exists(file_path):
