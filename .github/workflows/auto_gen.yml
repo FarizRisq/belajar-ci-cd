@@ -1,0 +1,22 @@
+name: Hourly Auto Data
+
+on:
+  schedule:
+    - cron: '0 * * * *' # Jalan setiap jam menit ke-0
+  workflow_dispatch: # Agar kamu bisa klik 'Run' manual buat ngetes sekarang
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - name: Install Dependencies
+        run: pip install pymongo dnspython
+      - name: Run Generator
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+        run: python generate_data.py
