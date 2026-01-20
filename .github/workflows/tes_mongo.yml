@@ -1,0 +1,24 @@
+name: Test Mongo Import
+
+on:
+  workflow_dispatch: # Supaya bisa dipencet manual dari tombol
+
+jobs:
+  test-koneksi:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Tools
+        run: pip install pymongo dnspython
+
+      - name: Jalankan Import
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+        run: python tes_import.py
