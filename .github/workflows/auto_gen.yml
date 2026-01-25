@@ -2,7 +2,6 @@ name: Hourly Auto Data
 
 on:
   schedule:
-    - cron: '0 * * * *' # Jalan setiap jam menit ke-0
   workflow_dispatch: # Agar kamu bisa klik 'Run' manual buat ngetes sekarang
 
 jobs:
